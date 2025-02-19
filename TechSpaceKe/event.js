@@ -1,11 +1,70 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Getting form elements
+document.addEventListener("DOMContentLoaded", function () {
+        const slides = document.querySelectorAll(".slide");
+        const nextBtn = document.querySelector(".next");
+        const prevBtn = document.querySelector(".prev");
+        let index = 0;
+        let slideInterval;
+    
+        function showSlide(newIndex) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove("active");
+                slide.style.display = (i === newIndex) ? "block" : "none";
+            });
+            index = newIndex;
+        }
+    
+        function nextSlide() {
+            index = (index + 1) % slides.length;
+            showSlide(index);
+        }
+    
+        function prevSlide() {
+            index = (index - 1 + slides.length) % slides.length;
+            showSlide(index);
+        }
+    
+        function startAutoSlide() {
+            stopAutoSlide(); 
+            slideInterval = setInterval(nextSlide, 3000);
+        }
+    
+        function stopAutoSlide() {
+            clearInterval(slideInterval);
+        }
+    
+        
+        if (slides.length > 0) {
+            showSlide(index); 
+    
+            if (nextBtn) {
+                nextBtn.addEventListener("click", () => {
+                    nextSlide();
+                    startAutoSlide(); 
+                });
+            }
+    
+            if (prevBtn) {
+                prevBtn.addEventListener("click", () => {
+                    prevSlide();
+                    startAutoSlide(); 
+                });
+            }
+    
+            
+            startAutoSlide();
+    
+            
+            document.querySelector(".slider-container").addEventListener("mouseenter", stopAutoSlide);
+            document.querySelector(".slider-container").addEventListener("mouseleave", startAutoSlide);
+        }
+    
+
+    // Form validation
     const form = document.getElementById('myForm');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const nameError = document.getElementById('nameError');
     const emailError = document.getElementById('emailError');
-    const submit = document.getElementById('submit');
 
     function validateEmail(email) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -13,11 +72,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); 
-        
+        event.preventDefault();
         let isValid = true;
-        
-        // Validate Name
+
         if (nameInput.value.trim() === '') {
             nameError.textContent = 'Name is required';
             isValid = false;
@@ -25,7 +82,6 @@ document.addEventListener('DOMContentLoaded', function() {
             nameError.textContent = '';
         }
 
-        // Validate Email
         if (emailInput.value.trim() === '') {
             emailError.textContent = 'Email is required';
             isValid = false;
@@ -36,40 +92,13 @@ document.addEventListener('DOMContentLoaded', function() {
             emailError.textContent = '';
         }
 
-        // If all inputs are valid
         if (isValid) {
             alert('Form Submitted Successfully!');
-            form.reset(); 
+            form.reset();
         }
-    }); 
-
-    // Image Slider
-    let slides = document.querySelectorAll('.slide');
-    let index = 0;
-
-    function showSlide() {
-        slides.forEach((slide, i) => {
-            slide.classList.remove('active');
-            if (i === index) {
-                slide.classList.add('active');
-            }
-        });
-    }
-
-    document.querySelector('.next').addEventListener('click', () => {
-        index = (index + 1) % slides.length;
-        showSlide();
     });
 
-    document.querySelector('.prev').addEventListener('click', () => {
-        index = (index - 1 + slides.length) % slides.length;
-        showSlide();
-    });
-
-    // Auto Slide Every 3 Seconds
-    setInterval(() => {
-        index = (index + 1) % slides.length;
-        showSlide();
-    }, 3000);
-}); // End of DOMContentLoaded
-
+    
+    
+    
+});

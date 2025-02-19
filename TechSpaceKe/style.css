@@ -324,58 +324,63 @@ form input:focus {
 /* Slider Section */
 #slider {
     position: relative;
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
+    width: 80%;
+    margin: 50px auto;
     overflow: hidden;
-    padding: 50px 0;
-    height:500px
-    
 }
 
-/* Slider Container */
 .slider-container {
     display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
 }
 
-/* Slide Images */
 .slider {
     display: flex;
-    width: 100%;
-    gap: 20px;
     transition: transform 0.5s ease-in-out;
 }
 
 .slide {
-    width: 200px; 
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    opacity: 0.4; 
+    display: none;
+    position: relative;
+    width: 100%;
+    max-width: 800px;
 }
-
-
-
-
-.slide:hover {
-    transform: scale(1.1); 
-    opacity: 1;
-    z-index: 2; 
-}
-
 
 .slide.active {
-    width: 400px;
-    height: 250px;
-    opacity: 1; 
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    display: block;
 }
 
-/* Slider Navigation Buttons */
+.slide img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.event-details {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 5px;
+    text-align: center;
+    width: 80%;
+}
+
+.event-details h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #ff4a57;
+}
+
+.event-details p {
+    font-size: 16px;
+    color: #ddd;
+}
+
+/* Navigation Buttons */
 .slider-nav {
     position: absolute;
     top: 50%;
@@ -386,21 +391,24 @@ form input:focus {
 }
 
 .slider-nav button {
-    background: rgba(0, 0, 0, 0.7);
+    background: rgba(255, 255, 255, 0.2);
     color: white;
     border: none;
     padding: 10px 15px;
+    font-size: 24px;
     cursor: pointer;
     border-radius: 50%;
-    font-size: 20px;
-    transition: 0.3s;
 }
 
 .slider-nav button:hover {
-    background: rgba(255, 255, 255, 0.7);
-    color: black;
+    background: rgba(255, 255, 255, 0.5);
 }
-
+.slide {
+    display: none;
+}
+.slide:first-child {
+    display: block;
+}
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .slider {
@@ -421,12 +429,13 @@ form input:focus {
 
 .footer{
     min-height: 10vh;
-    width: 100%;
+
     background-color: #0c0c0c;
     color: #dbdbdc;
     flex-direction: column;
     text-align: center;
     padding: 1rem;
+    overflow-x: hidden;
   
   }
   .footer .footer-container-contact-info{
